@@ -6,7 +6,7 @@
 /*   By: lebarbos <lebarbos@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 13:44:44 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/11 18:24:38 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:13:25 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strchr(char *str, int c)
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
-
+	
 	i = 0;
 	while (str[i])
 		i++;
@@ -43,28 +43,24 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_string;
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return(s1);
 	new_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!new_string)
 		return (NULL);
-	while (i < ft_strlen(s1))
+	while (*s1)
 	{
-		new_string[i] = s1[i];
+		new_string[i] = *s1;
 		i++;
+		s1++;
 	}
-	j = 0;
-	while (j < ft_strlen(s2))
+	while (*s2)
 	{
-		new_string[i + j] = s2[j];
-		j++;
+		new_string[i] = *s2;
+		i++;
+		s2++;
 	}
-	new_string[i + j] = '\0';
+	new_string[i] = '\0';
 	return (new_string);
 }
 

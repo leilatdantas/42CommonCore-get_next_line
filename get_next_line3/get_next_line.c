@@ -6,7 +6,7 @@
 /*   By: lebarbos <lebarbos@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 16:27:29 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/11 18:32:57 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/06/12 10:04:15 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static char	*read_and_stash(int fd, char *stash)
 		bytes = read (fd, buffer, BUFFER_SIZE);
 		if (!buffer)
 			return(NULL);
-		buffer[bytes] = '\0';
+		//buffer[bytes] = '\0';
 		stash = ft_strjoin (stash, buffer);
-	}
-	if (bytes < 0)
-	{
-		free (stash);
-		free (buffer);
-		return (NULL);
+		if (bytes < 0)
+		{
+			free (stash);
+			free (buffer);
+			return (NULL);
+		}
 	}
 	free (buffer);
 	return (stash);
