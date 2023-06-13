@@ -6,7 +6,7 @@
 /*   By: lebarbos <lebarbos@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:13:03 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/13 09:56:16 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:15:03 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ static char	*clean_stash(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	i++;
-	new_stash = malloc(sizeof(char) * (ft_strlen(stash) - i) + 1);
+	new_stash = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	while (stash[i] != '\0')
 	{
 		new_stash[j] = stash[i];

@@ -6,7 +6,7 @@
 /*   By: lebarbos <lebarbos@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 13:44:44 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/13 09:24:42 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:14:36 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,17 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*new_string;
 	size_t	i;
 	size_t	j;
 
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
 	new_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!new_string)
 		return (NULL);
@@ -60,6 +65,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		new_string[i + j] = s2[j];
 		j++;
 	}
+	free(s1);
 	new_string[i + j] = '\0';
 	return (new_string);
 }
