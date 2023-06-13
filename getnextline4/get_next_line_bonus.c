@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lebarbos <lebarbos@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:13:03 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/13 12:50:46 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:49:53 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_and_stash(int fd, char *stash)
 {
@@ -96,15 +96,31 @@ static char	*clean_stash(char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[10000];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stash = read_and_stash(fd, stash);
-	if (!stash)
+	stash[fd] = read_and_stash(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = extract_line(stash);
-	stash = clean_stash(stash);
+	line = extract_line(stash[fd]);
+	stash[fd] = clean_stash(stash[fd]);
 	return (line);
 }
+
+// int main(void)
+// {
+// 	int fd;
+// 	char	*str;
+// 	fd = open("test.txt", O_RDONLY);
+// 	str = get_next_line(fd);
+// 	while(str != NULL)
+// 	{
+// 		printf("Line: %s", str);
+// 		free(str);
+// 		str = get_next_line(fd);
+// 	}
+// 	close(fd);
+// 	return(0);
+// }
