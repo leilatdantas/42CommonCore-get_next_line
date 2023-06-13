@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebarbos <lebarbos@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: lebarbos <lebarbos@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:13:03 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/12 20:04:09 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:56:16 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static char	*read_and_stash(int fd, char *stash)
 	if (!buffer)
 		return (NULL);
 	bytes = 1;
-	while(!ft_strchr(stash, '\n') && bytes != 0)
+	while (!ft_strchr(stash, '\n') && bytes != 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes < 0)
+		if (bytes == -1)
 		{
 			free(buffer);
 			free(stash);
@@ -61,10 +61,7 @@ static char	*extract_line(char *stash)
 		i++;
 	}
 	if (stash[i] == '\n')
-	{
-		line[i] = '\n';
-		i++;
-	}
+		line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
 }
@@ -84,9 +81,9 @@ static char	*clean_stash(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	new_stash = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	i++;
-	while(stash[i] != '\0')
+	new_stash = malloc(sizeof(char) * (ft_strlen(stash) - i) + 1);
+	while (stash[i] != '\0')
 	{
 		new_stash[j] = stash[i];
 		j++;
@@ -94,18 +91,18 @@ static char	*clean_stash(char *stash)
 	}
 	new_stash[j] = '\0';
 	free(stash);
-	return(new_stash);
+	return (new_stash);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*line;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	stash = read_and_stash(fd, stash);
-	if(!stash)
+	if (!stash)
 		return (NULL);
 	line = extract_line(stash);
 	stash = clean_stash(stash);
@@ -116,7 +113,6 @@ char	*get_next_line(int fd)
 // {
 // 	int fd;
 // 	char	*str;
-	
 // 	fd = open("test.txt", O_RDONLY);
 // 	str = get_next_line(fd);
 // 	while(str != NULL)
