@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lebarbos <lebarbos@student.42porto.com     +#+  +:+       +#+        */
+/*   By: lebarbos <lebarbos@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:13:03 by lebarbos          #+#    #+#             */
-/*   Updated: 2023/06/13 12:49:53 by lebarbos         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:11:28 by lebarbos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
+/**
+ * The function reads data from a file descriptor and appends it to a stash
+ *  until a newline character is found or the end of the file is reached.
+ * 
+ * @param fd The parameter "fd" in the function "read_and_stash" represents the * file descriptor of the file that is being read from.
+ * @param stash The `stash` parameter is a character pointer that represents a * string where we want to store the data read from the file descriptor `fd`.
+ * 
+ * @return the updated value of the "stash" variable.
+ */
 static char	*read_and_stash(int fd, char *stash)
 {
 	char		*buffer;
@@ -39,6 +48,17 @@ static char	*read_and_stash(int fd, char *stash)
 	return (stash);
 }
 
+/**
+ * The function "extract_line" takes a string as input and returns a new string
+ * containing the characters up to the first newline character, including the
+ * newline character if it exists.
+ * 
+ * @param stash The `stash` parameter is a pointer to a (string) that contains
+ * multiple lines of text.
+ * 
+ * @return a pointer to a (string) that represents a line extracted from the 
+ * input string "stash".
+ */
 static char	*extract_line(char *stash)
 {
 	size_t	i;
@@ -66,6 +86,13 @@ static char	*extract_line(char *stash)
 	return (line);
 }
 
+/**
+ * The function "clean_stash" removes the first line from a string and returns * the modified string.
+ * 
+ * @param stash The parameter "stash" is a pointer to a string that needs to be * cleaned.
+ * 
+ * @return a pointer to a new string that has been cleaned.
+ */
 static char	*clean_stash(char *stash)
 {
 	size_t	i;
@@ -94,6 +121,13 @@ static char	*clean_stash(char *stash)
 	return (new_stash);
 }
 
+/**
+ * The function "get_next_line" reads a line from a file descriptor and returns * it as a string.
+ * 
+ * @param fd The parameter "fd" represents the file descriptor of the file from * which we want to read the next line.
+ * 
+ * @return a pointer to a character, which represents a line of text read from * the file descriptor specified by `fd`.
+ */
 char	*get_next_line(int fd)
 {
 	static char	*stash[10000];
